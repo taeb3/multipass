@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Canonical, Ltd.
+ * Copyright (C) 2019-2021 Canonical, Ltd.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,6 +40,7 @@ public:
     bool is_live() const;
 
     virtual std::string read_all_cin();
+    virtual void set_cin_echo(const bool enable) = 0;
 
     using UPtr = std::unique_ptr<Terminal>;
     static UPtr make_terminal();
