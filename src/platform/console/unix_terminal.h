@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Canonical, Ltd.
+ * Copyright (C) 2019-2021 Canonical, Ltd.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,6 +32,8 @@ public:
 
     int cout_fd() const;
     bool cout_is_live() const override;
+
+    void set_cin_echo(const bool enable) override;
 };
 } // namespace multipass
 
