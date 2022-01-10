@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2021 Canonical, Ltd.
+ * Copyright (C) 2021 Canonical, Ltd.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,37 +15,32 @@
  *
  */
 
-#ifndef MULTIPASS_TESTS_STUB_CERT_STORE_H
-#define MULTIPASS_TESTS_STUB_CERT_STORE_H
+#ifndef MULTIPASS_REGISTER_H
+#define MULTIPASS_REGISTER_H
 
-#include <multipass/cert_store.h>
+#include <multipass/cli/command.h>
 
 namespace multipass
 {
-namespace test
+namespace cmd
 {
-class StubCertStore : public CertStore
+class Register final : public Command
 {
 public:
-    void add_cert(const std::string& pem_cert) override
-    {
-    }
+    using Command::Command;
+    ReturnCode run(ArgParser* parser) override;
 
-    std::string PEM_cert_chain() const override
-    {
-        return {};
-    }
+    std::string name() const override;
+    std::vector<std::string> aliases() const override;
+    QString short_help() const override;
+    QString description() const override;
 
-    bool verify_cert(const std::string& pem_cert) override
-    {
-        return true;
-    }
+private:
+    ParseCode parse_args(ArgParser* parser) override;
 
-    bool is_store_empty() override
-    {
-        return true;
-    }
+    AuthenticateRequest request;
 };
-} // namespace test
+} // namespace cmd
 } // namespace multipass
-#endif // MULTIPASS_TESTS_STUB_CERT_STORE_H
+
+#endif // MULTIPASS_REGISTER_H

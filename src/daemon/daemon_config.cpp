@@ -21,6 +21,7 @@
 #include "ubuntu_image_host.h"
 
 #include <multipass/client_cert_store.h>
+#include <multipass/constants.h>
 #include <multipass/default_vm_workflow_provider.h>
 #include <multipass/logging/log.h>
 #include <multipass/logging/standard_logger.h>
@@ -162,7 +163,7 @@ std::unique_ptr<const mp::DaemonConfig> mp::DaemonConfigBuilder::build()
                                                               server_name_from(server_address));
     if (client_cert_store == nullptr)
         client_cert_store =
-            std::make_unique<mp::ClientCertStore>(mp::utils::make_dir(data_directory, "registered-certs"));
+            std::make_unique<mp::ClientCertStore>(mp::utils::make_dir(data_directory, mp::registered_certs_dir));
     if (ssh_username.empty())
         ssh_username = "ubuntu";
 
@@ -185,5 +186,5 @@ std::unique_ptr<const mp::DaemonConfig> mp::DaemonConfigBuilder::build()
         std::move(url_downloader), std::move(factory), std::move(image_hosts), std::move(vault),
         std::move(name_generator), std::move(ssh_key_provider), std::move(cert_provider), std::move(client_cert_store),
         std::move(update_prompt), multiplexing_logger, std::move(network_proxy), std::move(workflow_provider),
-        cache_directory, data_directory, server_address, ssh_username, connection_type, image_refresh_timer});
+        cache_directory, data_directory, server_address, ssh_username, image_refresh_timer});
 }
